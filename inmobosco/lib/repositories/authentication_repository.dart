@@ -16,7 +16,6 @@ class AuthenticationRepository {
 
   AuthenticationRepository() {
     _client = GetIt.I.get<RestClient>();
-    //_client = RestClient();
   }
 
   Future<dynamic> doLogin(String username, String password) async {
