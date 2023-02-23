@@ -5,7 +5,6 @@ class LoginResponse {
   String? createdAt;
   String? avatar;
   String? token;
-  String? refreshToken;
 
   LoginResponse(
       {this.id,
@@ -14,7 +13,7 @@ class LoginResponse {
       this.createdAt,
       this.avatar,
       this.token,
-      this.refreshToken});
+});
 
   LoginResponse.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -23,7 +22,6 @@ class LoginResponse {
     createdAt = json['createdAt'];
     avatar = json['avatar'];
     token = json['token'];
-    refreshToken = json['refreshToken'];
   }
 
   Map<String, dynamic> toJson() {
@@ -33,7 +31,6 @@ class LoginResponse {
     data['nombre'] = nombre;
     data['token'] = token;
     data['avatar'] = avatar;
-    data['refreshToken'] = refreshToken;
     return data;
   }
   
