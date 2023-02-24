@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inmobosco/posts/bloc/post_bloc.dart';
-import 'package:inmobosco/posts/posts.dart';
+import 'package:inmobosco/Inmueble/inmueble.dart';
+import 'package:inmobosco/blocs/inmuebles/inmuebles_bloc.dart';
+import 'package:inmobosco/blocs/inmuebles/inmuebles_event.dart';
+import 'package:inmobosco/blocs/inmuebles/inmuebles_state.dart';
 
-class PostsList extends StatefulWidget {
-  const PostsList({super.key});
+class InmuebleList extends StatefulWidget {
+  const InmuebleList({super.key});
 
   @override
-  State<PostsList> createState() => _PostsListState();
+  State<InmuebleList> createState() => _InmuebleListState();
 }
 
-class _PostsListState extends State<PostsList> {
+class _InmuebleListState extends State<InmuebleList> {
   final _scrollController = ScrollController();
 
   @override
@@ -21,27 +23,27 @@ class _PostsListState extends State<PostsList> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PostBloc, PostState>(
+    return BlocBuilder<InmuebleBloc, InmuebleState>(
       builder: (context, state) {
         switch (state.status) {
-          case PostStatus.failure:
+          case InmuebleStatus.failure:
             return const Center(child: Text('failed to fetch posts'));
-          case PostStatus.success:
-            if (state.posts.isEmpty) {
+          case InmuebleStatus.success:
+            if (state.inmubleList.isEmpty) {
               return const Center(child: Text('no posts'));
             }
             return ListView.builder(
               itemBuilder: (BuildContext context, int index) {
-                return index >= state.posts.length
+                return index >= state.inmubleList.length
                     ? const BottomLoader()
-                    : PostListItem(post: state.posts[index]);
+                    : InmuebleListItem(inmueble: state.inmubleList[index]);
               },
               itemCount: state.hasReachedMax
-                  ? state.posts.length
-                  : state.posts.length + 1,
+                  ? state.inmubleList.length
+                  : state.inmubleList.length + 1,
               controller: _scrollController,
             );
-          case PostStatus.initial:
+          case InmuebleStatus.initial:
             return const Center(child: CircularProgressIndicator());
         }
       },
@@ -57,7 +59,7 @@ class _PostsListState extends State<PostsList> {
   }
 
   void _onScroll() {
-    if (_isBottom) context.read<PostBloc>().add(PostFetched());
+    if (_isBottom) context.read<InmuebleBloc>().add(InmuebleFetched());
   }
 
   bool get _isBottom {

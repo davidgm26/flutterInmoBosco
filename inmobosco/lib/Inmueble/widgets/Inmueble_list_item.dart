@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:inmobosco/models/inmuebles.dart';
 
-class PostListItem extends StatelessWidget {
-  const PostListItem({super.key, required this.post});
+class InmuebleListItem extends StatelessWidget {
+  const InmuebleListItem({super.key, required this.inmueble});
 
-  final InmuebleResponse post;
+  final Inmueble inmueble;
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return Material(
       child: ListTile(
-        leading: Text('${post.tipo}', style: textTheme.bodySmall),
-        title: Text('${post.ubicacion}'),
+        leading: Text('${inmueble.tipo}', style: textTheme.bodySmall),
+        title: Text('${inmueble.ubicacion}'),
         isThreeLine: true,
-        subtitle: Text('${post.descripcion}'),
+        subtitle: Text('${inmueble.descripcion}'),
         dense: true,
       ),
     );
