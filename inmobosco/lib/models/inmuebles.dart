@@ -1,80 +1,79 @@
 class InmuebleResponse {
-  late List<Inmueble> inmueble;
-  late bool last;
-  late int totalPages;
-  late int totalElements;
-  late int size;
-  late int number;
-  late bool first;
-  late int numberOfElements;
-  late bool empty;
-
-  InmuebleResponse(
-      {
-      required this.inmueble,
-      required this.last,
-      required this.totalPages,
-      required this.totalElements,
-      required this.size,
-      required this.number,
-      required this.first,
-      required this.numberOfElements,
-      required this.empty});
-
-  InmuebleResponse.fromJson(Map<String, dynamic> json) {
-    if (json['Inmueble'] != null) {
-      inmueble = List<Inmueble>.empty();
-      json['Inmueble'].forEach((v) {
-        inmueble.add(new Inmueble.fromJson(v));
-      });
-    }
-
+  InmuebleResponse({
+    required this.content,
+    required this.pageable,
+    required this.last,
+    required this.totalPages,
+    required this.totalElements,
+    required this.size,
+    required this.number,
+    required this.sort,
+    required this.first,
+    required this.numberOfElements,
+    required this.empty,
+  });
+  late final List<Inmueble> content;
+  late final Pageable pageable;
+  late final bool last;
+  late final int totalPages;
+  late final int totalElements;
+  late final int size;
+  late final int number;
+  late final Sort sort;
+  late final bool first;
+  late final int numberOfElements;
+  late final bool empty;
+  
+  InmuebleResponse.fromJson(Map<String, dynamic> json){
+    content = List.from(json['content']).map((e)=>Inmueble.fromJson(e)).toList();
+    pageable = Pageable.fromJson(json['pageable']);
     last = json['last'];
     totalPages = json['totalPages'];
     totalElements = json['totalElements'];
     size = json['size'];
     number = json['number'];
+    sort = Sort.fromJson(json['sort']);
     first = json['first'];
     numberOfElements = json['numberOfElements'];
     empty = json['empty'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.inmueble != null) {
-      data['Inmueble'] = this.inmueble.map((v) => v.toJson()).toList();
-    }
-    data['last'] = this.last;
-    data['totalPages'] = this.totalPages;
-    data['totalElements'] = this.totalElements;
-    data['size'] = this.size;
-    data['number'] = this.number;
-    data['first'] = this.first;
-    data['numberOfElements'] = this.numberOfElements;
-    data['empty'] = this.empty;
-    return data;
+    final _data = <String, dynamic>{};
+    _data['content'] = content.map((e)=>e.toJson()).toList();
+    _data['pageable'] = pageable.toJson();
+    _data['last'] = last;
+    _data['totalPages'] = totalPages;
+    _data['totalElements'] = totalElements;
+    _data['size'] = size;
+    _data['number'] = number;
+    _data['sort'] = sort.toJson();
+    _data['first'] = first;
+    _data['numberOfElements'] = numberOfElements;
+    _data['empty'] = empty;
+    return _data;
   }
 }
 
 class Inmueble {
-  late String tipo;
-  late String descripcion;
-  late int precio;
-  late String ubicacion;
-  late double metrosCuadrados;
-  late int numBanios;
-  late int numHab;
-
   Inmueble({
-      required this.tipo,
-      required this.descripcion,
-      required this.precio,
-      required this.ubicacion,
-      required this.metrosCuadrados,
-      required this.numBanios,
-      required this.numHab});
-
-  Inmueble.fromJson(Map<String, dynamic> json) {
+    required this.tipo,
+    required this.descripcion,
+    required this.precio,
+    required this.ubicacion,
+    required this.metrosCuadrados,
+    required this.numBanios,
+    required this.numHab,
+  });
+  late final String tipo;
+  late final String descripcion;
+  late final dynamic precio;
+  late final String ubicacion;
+  late final dynamic metrosCuadrados;
+  late final int numBanios;
+  late final int numHab;
+  
+  Inmueble.fromJson(Map<String, dynamic> json){
     tipo = json['tipo'];
     descripcion = json['descripcion'];
     precio = json['precio'];
@@ -85,14 +84,76 @@ class Inmueble {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['tipo'] = this.tipo;
-    data['descripcion'] = this.descripcion;
-    data['precio'] = this.precio;
-    data['ubicacion'] = this.ubicacion;
-    data['metrosCuadrados'] = this.metrosCuadrados;
-    data['numBanios'] = this.numBanios;
-    data['numHab'] = this.numHab;
-    return data;
+    final _data = <String, dynamic>{};
+    _data['tipo'] = tipo;
+    _data['descripcion'] = descripcion;
+    _data['precio'] = precio;
+    _data['ubicacion'] = ubicacion;
+    _data['metrosCuadrados'] = metrosCuadrados;
+    _data['numBanios'] = numBanios;
+    _data['numHab'] = numHab;
+    return _data;
+  }
+}
+
+class Pageable {
+  Pageable({
+    required this.sort,
+    required this.offset,
+    required this.pageNumber,
+    required this.pageSize,
+    required this.paged,
+    required this.unpaged,
+  });
+  late final Sort sort;
+  late final int offset;
+  late final int pageNumber;
+  late final int pageSize;
+  late final bool paged;
+  late final bool unpaged;
+  
+  Pageable.fromJson(Map<String, dynamic> json){
+    sort = Sort.fromJson(json['sort']);
+    offset = json['offset'];
+    pageNumber = json['pageNumber'];
+    pageSize = json['pageSize'];
+    paged = json['paged'];
+    unpaged = json['unpaged'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['sort'] = sort.toJson();
+    _data['offset'] = offset;
+    _data['pageNumber'] = pageNumber;
+    _data['pageSize'] = pageSize;
+    _data['paged'] = paged;
+    _data['unpaged'] = unpaged;
+    return _data;
+  }
+}
+
+class Sort {
+  Sort({
+    required this.empty,
+    required this.sorted,
+    required this.unsorted,
+  });
+  late final bool empty;
+  late final bool sorted;
+  late final bool unsorted;
+  
+  Sort.fromJson(Map<String, dynamic> json){
+    empty = json['empty'];
+    sorted = json['sorted'];
+    unsorted = json['unsorted'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['empty'] = empty;
+    _data['sorted'] = sorted;
+    _data['unsorted'] = unsorted;
+    return _data;
   }
 }

@@ -18,11 +18,11 @@ class InmuebleRepository {
     _client = getIt<RestAuthenticatedClient>();
   }
 
-  Future<InmuebleResponse> fetchInmuebles(int index) async {
+  Future<InmuebleResponse> fetchInmuebles(int index,String token) async {
 
     String url = "/inmueble/?page=${index}";  
   
-    final response = await _client.get(url);
+    final response = await _client.get(url,token);
     
     return InmuebleResponse.fromJson(jsonDecode(response));
   

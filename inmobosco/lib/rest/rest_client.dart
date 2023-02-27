@@ -58,13 +58,15 @@ class RestClient {
   
 
 
-  Future<dynamic> get(String url) async {
+  Future<dynamic> get(String url, String token) async {
 
+    Map<String, String> headers = {
+      'Authorization': 'Bearer $token'};
     try {
 
         Uri uri = Uri.parse(ApiConstants.baseUrl + url);
 
-        final response = await _httpClient.get(uri);
+        final response = await _httpClient.get(uri,headers:headers);
         var responseJson = _response(response);
         return responseJson;
 

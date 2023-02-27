@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inmobosco/bloc/inmuebles/inmuebles_event.dart';
 import 'package:inmobosco/bloc/inmuebles/inmuebles_state.dart';
 import 'package:inmobosco/repositories/inmbueble_repository.dart';
+import 'package:inmobosco/services/inmueble_service.dart';
 import 'package:stream_transform/stream_transform.dart';
 
 const throttleDuration = Duration(milliseconds: 100);
@@ -15,14 +16,14 @@ EventTransformer<E> throttleDroppable<E>(Duration duration) {
 }
 
 class InmuebleBloc extends Bloc<InmuebleEvent, InmuebleState> {
-  InmuebleBloc  (this.inmuebleRepository) : super(const InmuebleState()) {
+  InmuebleBloc  (this.inmuebleService) : super(const InmuebleState()) {
     on<InmuebleFetched>(
       _onInmuebleFetched,
       transformer: throttleDroppable(throttleDuration),
     );
   }
 
-  final InmuebleRepository inmuebleRepository;
+  final InmuebleService inmuebleService;
 
   Future<void> _onInmuebleFetched(
       InmuebleFetched event, Emitter<InmuebleState> emitter) async {
@@ -30,19 +31,19 @@ class InmuebleBloc extends Bloc<InmuebleEvent, InmuebleState> {
     try {
       if (state.status == InmuebleStatus.initial) {
         page = 0;
-        final response = await inmuebleRepository.fetchInmuebles(page);
+        final response = await inmuebleService.getAllInmuebles(page);
         return emitter(state.copyWith(
           status: InmuebleStatus.success,
-          inmuebles: response.inmueble,
+          inmuebles: response.content,
           hasReachedMax: response.totalPages - 1 <= page,
         ));
       }
       page += 1;
-      final response = await inmuebleRepository.fetchInmuebles(page);
+      final response = await inmuebleService.getAllInmuebles(page);
 
       emitter(state.copyWith(
           status: InmuebleStatus.success,
-          inmuebles: List.of(state.inmubleList)..addAll(response.inmueble),
+          inmuebles: List.of(state.inmubleList)..addAll(response.content),
           hasReachedMax: response.totalPages - 1 <= page));
     } catch (_) {
       emitter(state.copyWith(status: InmuebleStatus.failure));

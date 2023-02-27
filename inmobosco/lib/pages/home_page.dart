@@ -5,6 +5,7 @@ import 'package:inmobosco/repositories/inmbueble_repository.dart';
 import 'package:inmobosco/bloc/authentication/authentication.dart';
 import 'package:inmobosco/bloc/inmuebles/inmuebles_bloc.dart';
 import 'package:inmobosco/bloc/inmuebles/inmuebles_event.dart';
+import 'package:inmobosco/services/inmueble_service.dart';
 
 class HomePage extends StatelessWidget {
   final User user;
@@ -19,7 +20,7 @@ class HomePage extends StatelessWidget {
         title: Text('InmoBosco'),
       ),
       body:
-      BlocProvider(create: (_) => InmuebleBloc(InmuebleRepository())
+      BlocProvider(create: (_) => InmuebleBloc(InmuebleService())
       ..add(InmuebleFetched()),
       child: InmuebleList())
       

@@ -22,7 +22,7 @@ class InmuebleService {
 
   Future<InmuebleResponse> getAllInmuebles(page) async{
     String? token = _localStorageService.getFromDisk("user_token");
-    InmuebleResponse response = await _inmuebleRepository.fetchInmuebles(page);
+    InmuebleResponse response = await _inmuebleRepository.fetchInmuebles(page,token!);
 
     return response;
   }
