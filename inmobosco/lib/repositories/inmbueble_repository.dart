@@ -8,7 +8,6 @@ import 'package:inmobosco/rest/rest.dart';
 
 const _postLimit = 20;
 
-String url_base = "http://localhost:8080";
 
 @singleton
 class InmuebleRepository {
@@ -19,20 +18,14 @@ class InmuebleRepository {
     _client = getIt<RestAuthenticatedClient>();
   }
 
-  Future<InmuebleResponse> fetchInmuebles([int startIndex = 0]) async {
+  Future<InmuebleResponse> fetchInmuebles(int index) async {
 
-    String url = "/inmueble/?page=${startIndex}";  
+    String url = "/inmueble/?page=${index}";  
   
     final response = await _client.get(url);
     
-    final body = jsonDecode(response);
-
-    return InmuebleResponse.fromJson(body);
-   
+    return InmuebleResponse.fromJson(jsonDecode(response));
   
-    //throw Exception('error fetching posts');
   }
-
-
 
 }

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inmobosco/Inmueble/inmueble.dart';
 import 'package:inmobosco/repositories/inmbueble_repository.dart';
-import 'package:inmobosco/blocs/authentication/authentication.dart';
-import 'package:inmobosco/blocs/inmuebles/inmuebles_bloc.dart';
-import 'package:inmobosco/blocs/inmuebles/inmuebles_event.dart';
+import 'package:inmobosco/bloc/authentication/authentication.dart';
+import 'package:inmobosco/bloc/inmuebles/inmuebles_bloc.dart';
+import 'package:inmobosco/bloc/inmuebles/inmuebles_event.dart';
 
 class HomePage extends StatelessWidget {
   final User user;

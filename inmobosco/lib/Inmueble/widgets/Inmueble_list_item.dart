@@ -11,10 +11,10 @@ class InmuebleListItem extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     return Material(
       child: ListTile(
-        leading: Text('${inmueble.tipo}', style: textTheme.bodySmall),
-        title: Text('${inmueble.ubicacion}'),
+        leading: Text(inmueble.tipo, style: textTheme.bodySmall),
+        title: Text(inmueble.ubicacion),
         isThreeLine: true,
-        subtitle: Text('${inmueble.descripcion}'),
+        subtitle: Text(inmueble.descripcion),
         dense: true,
       ),
     );

@@ -1,7 +1,7 @@
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inmobosco/blocs/inmuebles/inmuebles_event.dart';
-import 'package:inmobosco/blocs/inmuebles/inmuebles_state.dart';
+import 'package:inmobosco/bloc/inmuebles/inmuebles_event.dart';
+import 'package:inmobosco/bloc/inmuebles/inmuebles_state.dart';
 import 'package:inmobosco/repositories/inmbueble_repository.dart';
 import 'package:stream_transform/stream_transform.dart';
 

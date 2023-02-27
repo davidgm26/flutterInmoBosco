@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inmobosco/config/locator.dart';
-import 'package:inmobosco/blocs/blocs.dart';
+import 'package:inmobosco/bloc/blocs.dart';
 import 'package:inmobosco/services/services.dart';
 import 'package:inmobosco/pages/pages.dart';
 

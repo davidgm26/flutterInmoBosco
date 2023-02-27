@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inmobosco/Inmueble/inmueble.dart';
-import 'package:inmobosco/blocs/inmuebles/inmuebles_bloc.dart';
-import 'package:inmobosco/blocs/inmuebles/inmuebles_event.dart';
-import 'package:inmobosco/blocs/inmuebles/inmuebles_state.dart';
-
 class InmuebleList extends StatefulWidget {
   const InmuebleList({super.key});
 
@@ -27,10 +23,26 @@ class _InmuebleListState extends State<InmuebleList> {
       builder: (context, state) {
         switch (state.status) {
           case InmuebleStatus.failure:
-            return const Center(child: Text('failed to fetch posts'));
+            return Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Center(
+                  child: Text('Failed to fetch items'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    context.read<InmuebleBloc>().add((InmuebleFetched()));
+                  },
+                  style: const ButtonStyle(
+                      backgroundColor:
+                          MaterialStatePropertyAll(Colors.black87)),
+                  child: const Text('Actualizar'),
+                ),
+              ],
+            );
           case InmuebleStatus.success:
             if (state.inmubleList.isEmpty) {
-              return const Center(child: Text('no posts'));
+              return const Center(child: Text('no items'));
             }
             return ListView.builder(
               itemBuilder: (BuildContext context, int index) {
