@@ -36,7 +36,7 @@ class AuthenticationFailure extends AuthenticationState {
 
 class SessionExpiredState extends AuthenticationFailure {
 
-  SessionExpiredState() : super(message: 'Session expired. Please login again');
+  SessionExpiredState() : super(message: 'La sesión ha expirado, iniciela de nuevo');
 
   String get message => super.message;
   

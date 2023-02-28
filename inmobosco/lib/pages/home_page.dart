@@ -18,47 +18,23 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('InmoBosco'),
+        backgroundColor: Colors.red,
       ),
       body:
       BlocProvider(create: (_) => InmuebleBloc(InmuebleService())
       ..add(InmuebleFetched()),
-      child: InmuebleList())
-      
-      /* SafeArea(
-        minimum: const EdgeInsets.all(16),
-        child: Center(
-          child: Column(
-            children: <Widget>[
-              Text(
-                'Welcome, ${user.nombre}',
-                style: TextStyle(
-                  fontSize: 24
-                ),
-              ),
-              const SizedBox(
-                height: 12,
-              ),
-              ElevatedButton(
-                //textColor: Theme.of(context).primaryColor,
-                /*style: TextButton.styleFrom(
-                  primary: Theme.of(context).primaryColor,
-                ),*/
-                child: Text('Logout'),
-                onPressed: (){
-                  authBloc.add(UserLoggedOut());
-                },
-              ),
-              ElevatedButton(onPressed: () async {
-                print("Check");
-                JwtAuthenticationService service = getIt<JwtAuthenticationService>();
-                await service.getCurrentUser();
-              }
-              , child: Text('Check')
-              )
-            ],
-          ),
-        ),
-      ),*/
-    );
+      child: InmuebleList()),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor:Colors.red,
+        unselectedItemColor: Colors.white,
+        selectedItemColor: Colors.blueAccent, 
+        items: const <BottomNavigationBarItem>[
+        
+          BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: 'Lista',backgroundColor: Colors.red),
+          BottomNavigationBarItem(icon: Icon(Icons.face), label: 'Perfil'),
+          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Configuracion'),
+          BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Crear'), // new button
+        ]
+    ));
   }
 }
